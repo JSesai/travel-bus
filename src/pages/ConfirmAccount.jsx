@@ -36,7 +36,7 @@ export default function ConfirmAccount() {
   return (
     <div className="mt-20 md:mt-10 shadow-lg px-5 py-10 rounded-xl bg-white">
 
-      <h1 className="text-sky-600 font-black text-3xl capitalize">confirma tu cuenta y comienza a crear tus {' '} <span className="text-slate-700">Archivos</span> </h1>
+      <h1 className="text-sky-600 font-black text-3xl capitalize">confirma tu cuenta y comienza a Administrar tus {' '} <span className="text-slate-700">Viajes</span> </h1>
       <button onClick={comfirmAccount} className="bg-sky-700 w-full my-20 py-3 text-white font-bold uppercase rounded hover:cursor-pointer hover:bg-sky-800 transition-colors ">Confirmar Ahora</button>
     
     </div>

@@ -6,60 +6,31 @@ import useAuth from "../hooks/useAuth"
 
 export default function RegisterUser() {
 
+  const [typeUser] = useState('customer');
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repetirPassword, setRepetirPassword] = useState('');
 
-  const { showAlert, navigate } = useAuth()
-  
-  
-   const handleSubmit = async (e) => {
+  const { showAlert, navigate, checkUserRegistrationInput } = useAuth()
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //metemos en un array los estates para poder usar el metodo includes y evaluar que ninguno incluya valor vacio
-    if ([nombre, email, password, repetirPassword].includes('')) {
-
-      showAlert({
-        title: 'Faltan datos 😥',
-        typeAlert: 'error',
-        message: 'Todos los campos son obligatorios',
-      });
-      return
-    }
-    //comprueba si password y repetir password no son iguales 
-    if (password !== repetirPassword) {
-      showAlert({
-        title: 'Revisa  tus passwords 😥',
-        typeAlert: 'error',
-        message: 'Los passwords ingresados no son iguales',
-      });
-      return
-    }
-
-    //comprueba si la password es menor a 6 caracteres
-    if (password.length < 6) {
-      showAlert({
-        title: 'El password es muy corto 😥',
-        typeAlert: 'error',
-        message: 'Debe ser  mayor a 6 caracteres',
-      });
-      return
-    }
-
+    
     //enviamos la peticion al backend con ayuda de axios
     try {
-      showAlert({
-        typeAlert: 'loading'
-      })
+      await checkUserRegistrationInput({ nombre, email, password, repetirPassword })
+      showAlert({ typeAlert: 'loading' })
       //hacemos uso de la baseurl que esta en cliente axios
-      const { data } = await clienteAxios.post('/users', { nombre, email, password }); //peticion post pasa primer parametro la url, segundo parametro lo que envia en este caso enviamos un objeto con los datos necesarios para hacer un nuevo registro
-      
+      const { data } = await clienteAxios.post('/users', { nombre, email, password, typeUser }); //peticion post pasa primer parametro la url, segundo parametro lo que envia en este caso enviamos un objeto con los datos necesarios para hacer un nuevo registro
+
       //seteamos los inputs a campos vacios
       setNombre('');
       setEmail('');
       setPassword('');
       setRepetirPassword('');
-      
+
       //seteamos la alerta para mostrar el mensaje retornado del back
       console.log(data);
       showAlert({
@@ -70,10 +41,11 @@ export default function RegisterUser() {
 
     } catch (error) {
       console.log(error);
-      let message = error.response.data.message || 'Ocurrio un error intentalo más tarde si el problema persiste contacte a soporte técnico.'
+      let message =  error.messageCustom || error.response.data.message || 'Ocurrio un error intentalo más tarde si el problema persiste contacte a soporte técnico.'
       //en caso de ocurrir un error lo cachamos con axios con ayuda de error.response
       showAlert({
         typeAlert: 'error',
+        title: 'Revisa los datos ingresados 😥',
         message,
       })
     }
@@ -81,7 +53,7 @@ export default function RegisterUser() {
 
   return (
     <>
-      <h1 className="text-sky-600 font-black text-3xl capitalize">crea tu cuenta y administra tus {' '} <span className="text-slate-700">Archivos</span> </h1>
+      <h1 className="text-sky-600 font-black text-3xl capitalize">crea tu cuenta y administra tus {' '} <span className="text-slate-700">Viajes</span> </h1>
 
       <form className="my-4 bg-white shadow rounded-lg p-7" onSubmit={handleSubmit}>
 

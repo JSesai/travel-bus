@@ -41,7 +41,7 @@ export default function Login() {
       //navegamos a proyectos
       showAlert({
         typeAlert: 'closeAlert',
-        callbackAcept: () => navigate('/files')
+        callbackAcept: () => navigate('/MainHub')
       })
      
     } catch (error) {
