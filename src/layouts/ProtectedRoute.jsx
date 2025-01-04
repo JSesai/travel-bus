@@ -14,14 +14,14 @@ export default function ProtectedRoute() {
         <>
             {/* Validamos por id la propiedad extraída; si existe está autenticado, de lo contrario redirige al login */}
             {auth?._id ? (
-                <div className="min-h-screen flex">
+                <div className="min-h-screen flex flex-col md:flex-row">
                     {/* Aside */}
-                    <aside className="w-1/4  text-white p-4">
+                    <aside className="w-full md:w-1/4 text-white p-4 bg-gray-800 md:bg-transparent">
                         <SideBar />
                     </aside>
 
                     {/* Main Content */}
-                    <main className="w-3/4 bg-gray-100 p-6">
+                    <main className="w-full md:w-3/4 bg-gray-100 p-6">
                         <Outlet />
                     </main>
                 </div>

@@ -110,10 +110,10 @@ export default function RegisterUser() {
       </form>
 
       <nav className="lg:flex lg:justify-between">
-        <Link className="block text-center my-2 text-slate-500 uppercase text-sm" to="/">
+        <Link className="block text-center my-2 text-slate-500 uppercase text-sm" to="/usuarios/ingresar">
           ¿Ya tienes una cuenta? Inicia Sesión</Link>
 
-        <Link className="block text-center my-2 text-slate-500 uppercase text-sm" to="/olvide-password">
+        <Link className="block text-center my-2 text-slate-500 uppercase text-sm" to="/usuarios/olvide-password">
           olvide mi password</Link>
       </nav>
 

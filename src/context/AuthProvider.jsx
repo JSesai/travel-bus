@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
 
         // if(location)
         authUser();
-        
+
     }, [])
 
 
@@ -93,7 +93,7 @@ const AuthProvider = ({ children }) => {
 
     //maneja el estado del menu mobil
     const toggleMenu = () => {
-        console.log('cambiando estado de menu mobile');        
+        console.log('cambiando estado de menu mobile');
         setIsMenuOpen(!isMenuOpen);
     };
     //validacion de datos ingresados por el usuario
@@ -124,36 +124,23 @@ const AuthProvider = ({ children }) => {
 
     //obtiene el rol del sistema
     const getMenuSystemRole = async () => {
-        const token = tokenExists()
-        if (!token) return
-
-        setCargando(true);
-        //cabeceras para el envio de la peticion (objeto con la config)
-        const config = {
-            headers: {
-                "Content-Type": "application/json", //tipo de contenido
-                Authorization: `Bearer ${token}`, //enviamos el tipo de autenticacion que es Bearer y el JWT que es nuestro token
-            }
-        }
-
-        //si hay token se intenta autenticar al usuario con JWT
         try {
-            //extraemos la respuesta de nuestar peticion lo hacemos con await para que se detenga la ejecucion hasta obtener la respuesta de lo contrario sigue ejecutando y data se llena con valor de undefind
-            const { data: { user: userReceived } } = await clienteAxios('users/profile', config);
-            const user = {
-                _id: userReceived.id,
-                name: userReceived.nombre,
-                email: userReceived.email,
-                rolUser: userReceived?.rolUser ? userReceived.rolUser : null
-            }
-            console.log(user);
-            setAuth(user);
-            navigate('/MainHub')
+            console.log('obteniendo menu');
 
+            //cabeceras para el envio de la peticion (objeto con la config)
+            const config = {
+                headers: {
+                    "Content-Type": "application/json", //tipo de contenido
+                    Authorization: `Bearer ${token}`, //enviamos el tipo de autenticacion que es Bearer y el JWT que es nuestro token
+                }
+            }
+
+            const paramMenu = await clienteAxios('users/profile', config);
+            console.log(paramMenu);
+            
+            
         } catch (error) {
-            console.log(error);
-            setAuth({});
-            localStorage.clear()
+
         } finally {
             setCargando(false);
         }

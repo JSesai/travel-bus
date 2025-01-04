@@ -26,6 +26,7 @@ export default function Login() {
     try { 
       showAlert({typeAlert: 'loading'})
       //enviamos datos para validar loguin
+      // const { data } = await clienteAxios.get('/users');
       const { data } = await clienteAxios.post('/users/login', { email, password });
      
       console.log(data);
@@ -93,10 +94,10 @@ export default function Login() {
       </form>
 
       <nav className="lg:flex lg:justify-between">
-        <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to="/registrar">
+        <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to="/usuarios/registrar">
           ¿no tienes una cuenta? registrate</Link>
 
-        <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to="/olvide-password">
+        <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to="/usuarios/olvide-password">
           olvide mi password</Link>
       </nav>
 
